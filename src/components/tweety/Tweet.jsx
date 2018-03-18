@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import TweetForm from './TweetForm';
 
+import './index.css';
+
 // This is a Container Component
 class Tweet extends Component {
   constructor(props) {

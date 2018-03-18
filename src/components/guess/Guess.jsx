@@ -10,8 +10,8 @@ class Guess extends Component {
     this.state = {
       max: 10,
       lives: 7,
-      status: "new",
-      message: "",
+      status: 'new',
+      message: '',
       active: true,
     }
 
@@ -30,7 +30,7 @@ class Guess extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    if (this.state.status === "won" || this.state.lives === 0) {
+    if (this.state.status === 'won' || this.state.lives === 0) {
       return;
     }
 
@@ -41,25 +41,25 @@ class Guess extends Component {
       status, message;
 
     if (lives <= 1) {
-      status = "wrong";
+      status = 'wrong';
       active = false;
       lives = 0;
-      message = "Game over";
+      message = 'Game over';
     } else if (this.guess === this.answer) {
-      status = "won";
-      message = "You won!";
+      status = 'won';
+      message = 'You won!';
       active = false;
     } else if (this.guess > this.answer) {
-      status = "wrong";
-      message = "You guessed too high!";
+      status = 'wrong';
+      message = 'You guessed too high!';
       lives = this.state.lives - 1;
     } else if (this.guess < this.answer) {
-      status = "wrong";
-      message = "You guessed too low!";
+      status = 'wrong';
+      message = 'You guessed too low!';
       lives = this.state.lives - 1;
     } else {
-      status = "wrong";
-      message = "";
+      status = 'wrong';
+      message = '';
     }
 
     this.setState({
@@ -97,8 +97,8 @@ class Guess extends Component {
     let reset = {
       max: 10,
       lives: 5,
-      status: "new",
-      message: "",
+      status: 'new',
+      message: '',
       active: true
     };
 
