@@ -40,7 +40,7 @@ class Guess extends Component {
       active = this.state.active,
       status, message;
 
-    if (lives <= 1) {
+    if (lives === 1 && !(this.guess === this.answer)) {
       status = 'wrong';
       active = false;
       lives = 0;
@@ -96,7 +96,7 @@ class Guess extends Component {
   resetGame() {
     let reset = {
       max: 10,
-      lives: 5,
+      lives: 7,
       status: 'new',
       message: '',
       active: true

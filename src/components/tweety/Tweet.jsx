@@ -27,11 +27,15 @@ class Tweet extends Component {
     });
   }
 
+  handleChange(e) {
+    console.log(e.target.value);
+  }
+
   render() {
     return (
       <div className="tweety">
         <h1>Tweety Bird</h1>
-        <TweetForm addNewStatus={this.addNewStatus} startValue={this.state.value} />
+        <TweetForm addNewStatus={this.addNewStatus} handleChange={this.handleChange} startValue={this.state.value} />
         <ul>
           {
             this.state.tweets.map((tweet, i) => {

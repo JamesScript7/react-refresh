@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 
 class TweetForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
   onSubmit(e) {
     e.preventDefault();
 
@@ -16,11 +10,12 @@ class TweetForm extends Component {
 
   render() {
     return (
-      <form className="tweet-form" onSubmit={this.onSubmit}>
+      <form className="tweet-form" onSubmit={(e) => this.onSubmit(e)}>
         <input
           type="text"
           name="tweet"
           autoComplete="off"
+          onChange={e => this.props.handleChange(e)}
           placeholder={this.props.startValue} />
 
         <button>Tweet!</button>
