@@ -15,6 +15,7 @@ class TweetForm extends Component {
           type="text"
           name="tweet"
           autoComplete="off"
+          maxLength={this.props.maxLen}
           onChange={e => this.props.handleChange(e)}
           placeholder={this.props.startValue} />
 

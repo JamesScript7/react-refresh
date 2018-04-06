@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+// STYLES
 import './index.css';
 
 class Guess extends Component {
@@ -9,7 +10,7 @@ class Guess extends Component {
 
     this.state = {
       max: 10,
-      lives: 7,
+      lives: Math.round(Math.log2(7)),
       status: 'new',
       message: '',
       active: true,
@@ -82,12 +83,13 @@ class Guess extends Component {
   }
 
   onRangeChange(e) {
-    let range = e.target.value;
     e.target.min = 5;
-    e.target.max = 50;
+    e.target.max = 1000;
+    let range = e.target.value;
 
     this.setState({
-      max: range
+      max: range,
+      lives: Math.round(Math.log2(e.target.value))
     });
 
     this.answer = this.pickNumber(this.state.max);
@@ -96,7 +98,7 @@ class Guess extends Component {
   resetGame() {
     let reset = {
       max: 10,
-      lives: 7,
+      lives: Math.round(Math.log2(7)),
       status: 'new',
       message: '',
       active: true
@@ -109,19 +111,22 @@ class Guess extends Component {
   render() {
     return (
       <div className="guess">
+        <h1>Guess the Number!</h1>
         <div>Lives left: {this.state.lives}</div>
         <button className={`reset-btn ${this.state.active ? "hide": "active"}`} onClick={this.resetGame}>Reset Game</button>
 
         <form className="guess" onSubmit={this.onSubmit}>
           <input type="range" value={this.state.max} name="range" onChange={this.onRangeChange} />
-          <label>
-            Guess the Number:
-            <input type="number" name="guess" onChange={this.onNumberChange} />
-          </label>
-          <button className={`enter-btn ${this.state.active ? "active": "hide"}`}>Enter</button>
+          <div>Guess the number between 1 and {this.state.max}</div>
+          <div>
+            <label>
+              Number:
+              <input type="number" name="guess" onChange={this.onNumberChange} />
+            </label>
+            <button className={`enter-btn ${this.state.active ? "active": "hide"}`}>Enter</button>
+          </div>
         </form>
 
-        <div>Guess the number between 1 and {this.state.max}</div>
         <div className={`message ${this.state.status}`}>{this.state.message}</div>
         <div>{!this.state.active ? `The magic number was ${this.answer}` : ""}</div>
       </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TweetForm from './TweetForm';
 
+// STYLES
 import './index.css';
 
 // This is a Container Component
@@ -11,10 +12,13 @@ class Tweet extends Component {
     this.state = {
       value: props.startValue || 'What\'s on your mind?',
       tweets: [],
+      maxLen: 50,
+      inputLen: 0
     }
 
-    // Need to do this or this.state won't work in addNewStatus()
+    // Need to do this or this.state won't work in the functions here.
     this.addNewStatus = this.addNewStatus.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   addNewStatus(status) {
@@ -23,19 +27,31 @@ class Tweet extends Component {
     tweetArr.push(status);
 
     this.setState({
-      tweets: tweetArr
+      tweets: tweetArr,
+      inputLen: 0
     });
   }
 
   handleChange(e) {
-    console.log(e.target.value);
+    let difference = this.state.maxLen - parseInt(e.target.value.length, 10);
+
+    if (difference >= 0) {
+      this.setState({
+        inputLen: difference
+      });
+    }
+
   }
 
   render() {
     return (
       <div className="tweety">
-        <h1>Tweety Bird</h1>
-        <TweetForm addNewStatus={this.addNewStatus} handleChange={this.handleChange} startValue={this.state.value} />
+        <h1>Tweet Simulator</h1>
+        <TweetForm addNewStatus={this.addNewStatus}
+                   handleChange={this.handleChange}
+                   startValue={this.state.value}
+                   maxLen={this.state.maxLen}/>
+        <p>Characters left: {this.state.inputLen ? this.state.inputLen : this.state.maxLen}</p>
         <ul>
           {
             this.state.tweets.map((tweet, i) => {
