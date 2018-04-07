@@ -5,6 +5,7 @@ import Game from './tictactoe/Game';
 import Tweet from './tweety/Tweet';
 import Guess from './guess/Guess';
 import Clock from './clock/Clock';
+import Timer from './timer/Timer';
 
 class App extends Component {
   render() {
@@ -14,6 +15,7 @@ class App extends Component {
         <Tweet />
         <Guess />
         <Clock />
+        <Timer />
       </div>
     );
   }

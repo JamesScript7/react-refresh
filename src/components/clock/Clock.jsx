@@ -8,16 +8,49 @@ class Clock extends Component {
     super(props);
 
     this.state = {
-      time: 0
+      time: new Date()
     }
-
+  }
+  componentDidMount() {
+    this.timer = setInterval(
+      () => this.run(), 1000
+    );
+  }
+  componentWillMount() {
+    clearInterval(this.timer);
+  }
+  run() {
+    this.setState({
+      time: new Date()
+    })
   }
   render() {
-    let d = new Date();
+    let hoursMilitary = this.state.time.getHours();
+    let minutes = this.state.time.getMinutes();
+    let seconds = this.state.time.getSeconds();
+    let hours;
+    let amPm;
+
+    if (hoursMilitary === 0) {
+      hours = 12;
+      amPm = 'PM';
+    }
+    else if (hoursMilitary > 12) {
+      hours = hoursMilitary - 12;
+      amPm = 'PM';
+    } else {
+      hours = hoursMilitary;
+      amPm = 'AM';
+    }
+    if (minutes < 10) minutes = "0" + minutes;
+    if (seconds < 10) seconds = "0" + seconds;
+
     return (
-      <div>
+      <div className="clock">
         <h1>Clock</h1>
-        <p>{d.getHours()}</p>
+        <div>
+          <span className="hours">{hours}</span> : <span className="minutes">{minutes}</span> : <span className="seconds">{seconds}</span> {amPm}
+        </div>
       </div>
     )
   }
