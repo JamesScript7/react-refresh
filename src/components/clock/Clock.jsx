@@ -16,13 +16,13 @@ class Clock extends Component {
       () => this.run(), 1000
     );
   }
-  componentWillMount() {
+  componentWillUnmount() {
     clearInterval(this.timer);
   }
   run() {
     this.setState({
       time: new Date()
-    })
+    });
   }
   render() {
     let hoursMilitary = this.state.time.getHours();
@@ -49,7 +49,12 @@ class Clock extends Component {
       <div className="clock">
         <h1>Clock</h1>
         <div>
-          <span className="hours">{hours}</span> : <span className="minutes">{minutes}</span> : <span className="seconds">{seconds}</span> {amPm}
+          <h2>Digital</h2>
+          <span className="hours">{hours}</span> : <span className="minutes">{minutes}</span> : <span className="seconds">{seconds}</span> <span>{amPm}</span>
+        </div>
+        <div>
+          <h2>Analog</h2>
+          <span className="hours">{hours}</span> : <span className="minutes">{minutes}</span> : <span className="seconds">{seconds}</span> <span>{amPm}</span>
         </div>
       </div>
     )

@@ -1,13 +1,4 @@
-body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
-}
-
-ol, ul {
-  padding-left: 30px;
-}
-
-.board-row:after {
+/* .board-row:after {
   clear: both;
   content: "";
   display: table;
@@ -47,4 +38,4 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
-}
+} */

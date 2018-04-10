@@ -13,16 +13,21 @@ class Timer extends Component {
       seconds: 0,
       countDown: null
     }
+
+    this.timer = null;
+  }
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
   onChange(e) {
     if (e.target.id === 'minutes' && e.target.value <= 60) {
       this.setState({
-        minutes: e.target.value
+        minutes: e.target.value || 0
       });
     }
     if (e.target.id === 'seconds' && e.target.value <= 60) {
       this.setState({
-        seconds: e.target.value
+        seconds: e.target.value || 0
       });
     }
   }
@@ -33,47 +38,70 @@ class Timer extends Component {
     // Need to be converted to milliseconds
     let d = new Date().getTime();
     let combined = d + minutes + seconds;
-    let timer = setInterval(function(){
+
+    this.timer = setInterval(() => {
       d = new Date().getTime();
-      console.log(((combined - d) / 1000) + 1);
+      this.run(combined, d);
+
       if ((combined - d) < 0) {
-        clearInterval(timer);
+        console.log('END!');
+        clearInterval(this.timer);
       }
     }, 1000);
   }
+  run(comb, date) {
+    this.setState({
+      countDown: Math.round(((comb - date) / 1000) + 1)
+    });
+  }
   onReset() {
     console.log('RESET!');
+    clearInterval(this.timer);
+
+    this.setState({
+      minutes: 0,
+      seconds: 0,
+      countDown: null
+    })
   }
   render() {
-    let hoursMilitary = this.state.time.getHours();
-    let minutes = this.state.time.getMinutes();
-    let seconds = this.state.time.getSeconds();
-    let hours;
-
-    if (hoursMilitary === 0)
-      hours = 12;
-    else if (hoursMilitary > 12)
-      hours = hoursMilitary - 12;
-    else
-      hours = hoursMilitary;
-    if (minutes < 10) minutes = "0" + minutes;
-    if (seconds < 10) seconds = "0" + seconds;
+    // let hoursMilitary = this.state.time.getHours();
+    // let minutes = this.state.time.getMinutes();
+    // let seconds = this.state.time.getSeconds();
+    // let hours;
+    //
+    // if (hoursMilitary === 0)
+    //   hours = 12;
+    // else if (hoursMilitary > 12)
+    //   hours = hoursMilitary - 12;
+    // else
+    //   hours = hoursMilitary;
+    // if (minutes < 10) minutes = "0" + minutes;
+    // if (seconds < 10) seconds = "0" + seconds;
 
     return (
       <div className="clock">
         <h1>Quick Timer</h1>
         <div>
-          {this.state.countDown}
+          <h2>{this.state.countDown}</h2>
+          <span>{this.state.minutes} : {this.state.seconds}</span>
         </div>
-        <input id="minutes" type="number" value={this.state.minutes ? this.state.minutes : "minutes"} onChange={(e) => this.onChange(e)} placeholder="minutes" max="60"/>
-        <input id="seconds" type="number" value={this.state.seconds ? this.state.seconds : "seconds"} onChange={(e) => this.onChange(e)} placeholder="seconds" max="60"/>
+        <input id="minutes"
+               type="number"
+               value={this.state.minutes ? this.state.minutes : "minutes"}
+               onChange={(e) => this.onChange(e)}
+               placeholder="minutes"
+               min="0"
+               max="60"/>
+        <input id="seconds"
+               type="number"
+               value={this.state.seconds ? this.state.seconds : "seconds"}
+               onChange={(e) => this.onChange(e)}
+               placeholder="seconds"
+               min="0"
+               max="60"/>
         <button onClick={() => this.onStart()}>START</button>
         <button onClick={() => this.onReset()}>RESET</button>
-        {/*
-        <div>
-          <span className="hours">{hours}</span> : <span className="minutes">{minutes}</span> : <span className="seconds">{seconds}</span>
-        </div>
-        */}
       </div>
     )
   }
