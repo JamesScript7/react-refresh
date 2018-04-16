@@ -48,14 +48,16 @@ class Clock extends Component {
     return (
       <div className="clock">
         <h1>Clock</h1>
-        <div>
+        <div className="digital">
           <h2>Digital</h2>
           <span className="hours">{hours}</span> : <span className="minutes">{minutes}</span> : <span className="seconds">{seconds}</span> <span>{amPm}</span>
         </div>
-        <div>
+        {/*
+        <div className="analog">
           <h2>Analog</h2>
           <span className="hours">{hours}</span> : <span className="minutes">{minutes}</span> : <span className="seconds">{seconds}</span> <span>{amPm}</span>
         </div>
+        */}
       </div>
     )
   }

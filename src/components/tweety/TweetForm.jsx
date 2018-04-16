@@ -4,8 +4,10 @@ class TweetForm extends Component {
   onSubmit(e) {
     e.preventDefault();
 
-    this.props.addNewStatus(e.target.tweet.value);
-    e.target.reset();
+    if (e.target.tweet.value.length !== 0) {
+      this.props.addNewStatus(e.target.tweet.value);
+      e.target.reset();
+    }
   }
 
   render() {

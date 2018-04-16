@@ -1,3 +1,36 @@
+.guess {
+  padding: 0 10px;
+}
+
+.guess-it {
+  font-size: 2em;
+}
+
+.top {
+  padding: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.wrong {
+  text-align: center;
+  color: crimson;
+}
+
+.won {
+  color: forestgreen;
+}
+
+.msg {
+  text-align: center;
+}
+
+input[type='range'] {
+  width: 100px;
+}
+
 /* .active {
 }
 

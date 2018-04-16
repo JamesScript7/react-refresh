@@ -86,13 +86,14 @@ class Guess extends Component {
     e.target.min = 5;
     e.target.max = 1000;
     let range = e.target.value;
+    console.log(range);
 
     this.setState({
       max: range,
       lives: Math.round(Math.log2(e.target.value))
     });
 
-    this.answer = this.pickNumber(this.state.max);
+    this.answer = this.pickNumber(range);
   }
 
   resetGame() {
@@ -112,23 +113,30 @@ class Guess extends Component {
     return (
       <div className="guess">
         <h1>Guess the Number!</h1>
-        <div>Lives left: {this.state.lives}</div>
-        <button className={`reset-btn ${this.state.active ? "hide": "active"}`} onClick={this.resetGame}>Reset Game</button>
+        <div className="top">
+          <div>Lives left: {this.state.lives}</div>
+          <button className={`reset-btn ${this.state.active ? "hide": "active"}`} onClick={this.resetGame}>Reset Game</button>
+        </div>
 
         <form className="guess" onSubmit={this.onSubmit}>
+          <div>Number Range:</div>
           <input type="range" value={this.state.max} name="range" onChange={this.onRangeChange} />
-          <div>Guess the number between 1 and {this.state.max}</div>
-          <div>
-            <label>
-              Number:
-              <input type="number" name="guess" onChange={this.onNumberChange} />
-            </label>
-            <button className={`enter-btn ${this.state.active ? "active": "hide"}`}>Enter</button>
-          </div>
-        </form>
 
-        <div className={`message ${this.state.status}`}>{this.state.message}</div>
-        <div>{!this.state.active ? `The magic number was ${this.answer}` : ""}</div>
+          <div className="center">
+            <div className="guess-it">Guess the number between 1 and {this.state.max}</div>
+            <div>
+              <label>
+                <input type="number" name="guess" onChange={this.onNumberChange} />
+              </label>
+              <button className={`enter-btn ${this.state.active ? "active": "hide"}`}>Enter</button>
+            </div>
+          </div>
+
+        </form>
+        <div className="msg">
+          <div className={this.state.status}>{this.state.message}</div>
+          <div>{!this.state.active ? `The magic number was ${this.answer}` : ""}</div>
+        </div>
       </div>
     )
   }

@@ -13,7 +13,7 @@ class Tweet extends Component {
       value: props.startValue || 'What\'s on your mind?',
       tweets: [],
       maxLen: 50,
-      inputLen: 0
+      inputLen: 0 || 50
     }
 
     // Need to do this or this.state won't work in the functions here.
@@ -28,7 +28,7 @@ class Tweet extends Component {
 
     this.setState({
       tweets: tweetArr,
-      inputLen: 0
+      inputLen: 0 || 50
     });
   }
 
@@ -47,12 +47,14 @@ class Tweet extends Component {
     return (
       <div className="tweety">
         <h1>Tweet Simulator</h1>
-        <TweetForm addNewStatus={this.addNewStatus}
-                   handleChange={this.handleChange}
-                   startValue={this.state.value}
-                   maxLen={this.state.maxLen}/>
-        <p>Characters left: {this.state.inputLen ? this.state.inputLen : this.state.maxLen}</p>
-        <ul>
+        <div className="tweet-form">
+          <TweetForm addNewStatus={this.addNewStatus}
+            handleChange={this.handleChange}
+            startValue={this.state.value}
+            maxLen={this.state.maxLen}/>
+          <p>Characters left: {this.state.inputLen}</p>
+        </div>
+        <ul className="tweet-list">
           {
             this.state.tweets.map((tweet, i) => {
               return (
