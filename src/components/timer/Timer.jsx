@@ -83,8 +83,8 @@ class Timer extends Component {
       <div className="clock">
         <h1>Quick Timer</h1>
         <div>
-          <h2>{this.state.countDown}</h2>
-          <span>{this.state.minutes} : {this.state.seconds}</span>
+          <div class="countdown-number">{this.state.countDown}</div>
+          <span className="timeset">{this.state.minutes} : {this.state.seconds}</span>
         </div>
         <input id="minutes"
                type="number"
