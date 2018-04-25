@@ -5,6 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 // STYLES
 import './index.css';
 
+// REDUX
+import index from './js/index';
+
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 
