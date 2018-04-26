@@ -62,7 +62,7 @@ class Timer extends Component {
       minutes: 0,
       seconds: 0,
       countDown: null
-    })
+    });
   }
   render() {
     // let hoursMilitary = this.state.time.getHours();
@@ -83,7 +83,7 @@ class Timer extends Component {
       <div className="clock">
         <h1>Quick Timer</h1>
         <div>
-          <div class="countdown-number">{this.state.countDown}</div>
+          <div className="countdown-number">{this.state.countDown}</div>
           <span className="timeset">{this.state.minutes} : {this.state.seconds}</span>
         </div>
         <input id="minutes"

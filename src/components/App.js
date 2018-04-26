@@ -46,7 +46,7 @@ const Home = () => (
       </ul>
     </div>
   </main>
-)
+);
 
 const App = () => (
   <div className="app">
