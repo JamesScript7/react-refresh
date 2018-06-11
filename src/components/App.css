@@ -3,7 +3,8 @@
 }
 
 .home-menu li {
-  margin: 0 8px;
+  margin: 0;
+  padding: 10px 20px;
   text-align: right;
 }
 

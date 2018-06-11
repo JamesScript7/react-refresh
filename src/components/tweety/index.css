@@ -2,6 +2,10 @@ p {
   margin: 0;
 }
 
+input, button {
+  padding: 10px;
+}
+
 .tweet-form {
   text-align: center;
 }

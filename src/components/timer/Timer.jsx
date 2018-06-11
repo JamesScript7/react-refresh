@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 // STYLES
 import './index.css';
 
@@ -9,23 +8,25 @@ class Timer extends Component {
 
     this.state = {
       time: new Date(),
-      minutes: 0,
-      seconds: 0,
+      minutes: '00',
+      seconds: '00',
       countDown: null
     }
 
+    this.arr = Array(60).fill(null);
     this.timer = null;
   }
   componentWillUnmount() {
     clearInterval(this.timer);
   }
   onChange(e) {
-    if (e.target.id === 'minutes' && e.target.value <= 60) {
+    console.log(e.target.id);
+    if (e.target.id === 'minutes') {
       this.setState({
         minutes: e.target.value || 0
       });
     }
-    if (e.target.id === 'seconds' && e.target.value <= 60) {
+    if (e.target.id === 'seconds') {
       this.setState({
         seconds: e.target.value || 0
       });
@@ -35,6 +36,11 @@ class Timer extends Component {
     console.log('START!');
     let minutes = parseInt(this.state.minutes, 10) * 60 * 1000;
     let seconds = parseInt(this.state.seconds, 10) * 1000;
+    if (minutes > 60) {
+      console.log("OVER", minutes);
+    } else if (seconds > 60) {
+      console.log("OVER", seconds);
+    }
     // Need to be converted to milliseconds
     let d = new Date().getTime();
     let combined = d + minutes + seconds;
@@ -43,25 +49,25 @@ class Timer extends Component {
       d = new Date().getTime();
       this.run(combined, d);
 
-      if ((combined - d) < 0) {
+      if ((combined - d) <= 0) {
         console.log('END!');
         clearInterval(this.timer);
       }
     }, 1000);
-  }
-  run(comb, date) {
-    this.setState({
-      countDown: Math.round(((comb - date) / 1000) + 1)
-    });
   }
   onReset() {
     console.log('RESET!');
     clearInterval(this.timer);
 
     this.setState({
-      minutes: 0,
-      seconds: 0,
+      minutes: '00',
+      seconds: '00',
       countDown: null
+    });
+  }
+  run(comb, date) {
+    this.setState({
+      countDown: Math.round(((comb - date) / 1000) + 1)
     });
   }
   render() {
@@ -82,26 +88,32 @@ class Timer extends Component {
     return (
       <div className="clock">
         <h1>Quick Timer</h1>
-        <div>
-          <div className="countdown-number">{this.state.countDown}</div>
-          <span className="timeset">{this.state.minutes} : {this.state.seconds}</span>
+        <div className="input-field">
+          <select
+            id="minutes"
+            onChange={(e) => this.onChange(e)}>
+            {this.arr.map((el, i) => {
+                return <option key={i} value={i}>{i}</option>
+              })
+            }
+          </select>
+          <select
+            id="seconds"
+            onChange={(e) => this.onChange(e)}>
+            {this.arr.map((el, i) => {
+                return <option key={i} value={i}>{i}</option>
+              })
+            }
+          </select>
+          <div className="button">
+            <button onClick={() => this.onStart()}>START</button>
+            <button onClick={() => this.onReset()}>RESET</button>
+          </div>
         </div>
-        <input id="minutes"
-               type="number"
-               value={this.state.minutes ? this.state.minutes : "minutes"}
-               onChange={(e) => this.onChange(e)}
-               placeholder="minutes"
-               min="0"
-               max="60"/>
-        <input id="seconds"
-               type="number"
-               value={this.state.seconds ? this.state.seconds : "seconds"}
-               onChange={(e) => this.onChange(e)}
-               placeholder="seconds"
-               min="0"
-               max="60"/>
-        <button onClick={() => this.onStart()}>START</button>
-        <button onClick={() => this.onReset()}>RESET</button>
+        <div>
+          <span className="timeset">{this.state.minutes}:{this.state.seconds}</span>
+          <div className="countdown-number">{this.state.countDown}</div>
+        </div>
       </div>
     )
   }

@@ -50,7 +50,7 @@ class Clock extends Component {
         <h1>Clock</h1>
         <div className="digital">
           <h2>Digital</h2>
-          <span className="hours">{hours}</span> : <span className="minutes">{minutes}</span> : <span className="seconds">{seconds}</span> <span>{amPm}</span>
+          <span className="hours">{hours}</span> <span>:</span> <span className="minutes">{minutes}</span> <span>:</span> <span className="seconds">{seconds}</span> <span>{amPm}</span>
         </div>
         {/*
         <div className="analog">

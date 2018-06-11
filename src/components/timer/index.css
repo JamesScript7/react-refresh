@@ -1,7 +1,15 @@
+select {
+  padding: 10px;
+}
+
 .countdown-number {
   font-size: 10em;
 }
 
 .timeset {
   font-size: 1em;
+}
+
+input#minutes, input#seconds {
+  width: 100px;
 }

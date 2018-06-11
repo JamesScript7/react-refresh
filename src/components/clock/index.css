@@ -8,8 +8,9 @@ span {
   text-align: left;
   display: inline-block;
   margin: 20px;
-  padding: 10px 25px;
+  padding: 25px 50px;
   border: 2px solid darkorchid;
+  border-radius: 10px;
 }
 
 .clock {
