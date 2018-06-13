@@ -1,5 +1,6 @@
-select {
-  padding: 10px;
+select#minutes, select#seconds {
+  padding: 11px;
+  border-radius: 2px;
 }
 
 .countdown-number {
@@ -10,6 +11,26 @@ select {
   font-size: 1em;
 }
 
+.input-field label {
+  padding: 0 20px;
+}
+
 input#minutes, input#seconds {
   width: 100px;
+}
+
+.button button {
+  margin-left: 20px;
+  border: none;
+  border-radius: 2px;
+  background-color: slategrey;
+  color: snow;
+}
+
+.button .start-btn {
+  background-color: olivedrab;
+}
+
+.button .stop-btn {
+  background-color: maroon;
 }

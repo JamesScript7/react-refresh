@@ -10,7 +10,8 @@ class Timer extends Component {
       time: new Date(),
       minutes: '00',
       seconds: '00',
-      countDown: null
+      countDown: null,
+      status: 'START'
     }
 
     this.arr = Array(60).fill(null);
@@ -36,11 +37,15 @@ class Timer extends Component {
     console.log('START!');
     let minutes = parseInt(this.state.minutes, 10) * 60 * 1000;
     let seconds = parseInt(this.state.seconds, 10) * 1000;
-    if (minutes > 60) {
+
+    if (seconds === 0) {
+      return;
+    } else if (minutes > 60) {
       console.log("OVER", minutes);
     } else if (seconds > 60) {
       console.log("OVER", seconds);
     }
+
     // Need to be converted to milliseconds
     let d = new Date().getTime();
     let combined = d + minutes + seconds;
@@ -62,53 +67,45 @@ class Timer extends Component {
     this.setState({
       minutes: '00',
       seconds: '00',
-      countDown: null
+      countDown: null,
+      status: 'START'
     });
   }
   run(comb, date) {
     this.setState({
-      countDown: Math.round(((comb - date) / 1000) + 1)
+      countDown: Math.round(((comb - date) / 1000) + 1),
+      status: 'STOP'
     });
   }
   render() {
-    // let hoursMilitary = this.state.time.getHours();
-    // let minutes = this.state.time.getMinutes();
-    // let seconds = this.state.time.getSeconds();
-    // let hours;
-    //
-    // if (hoursMilitary === 0)
-    //   hours = 12;
-    // else if (hoursMilitary > 12)
-    //   hours = hoursMilitary - 12;
-    // else
-    //   hours = hoursMilitary;
-    // if (minutes < 10) minutes = "0" + minutes;
-    // if (seconds < 10) seconds = "0" + seconds;
-
     return (
       <div className="clock">
         <h1>Quick Timer</h1>
         <div className="input-field">
+          <label htmlFor="minutes">Minutes:</label>
           <select
             id="minutes"
+            value={this.state.minutes}
             onChange={(e) => this.onChange(e)}>
             {this.arr.map((el, i) => {
                 return <option key={i} value={i}>{i}</option>
               })
             }
           </select>
+          <label htmlFor="seconds">Seconds:</label>
           <select
             id="seconds"
+            value={this.state.seconds}
             onChange={(e) => this.onChange(e)}>
             {this.arr.map((el, i) => {
                 return <option key={i} value={i}>{i}</option>
               })
             }
           </select>
-          <div className="button">
-            <button onClick={() => this.onStart()}>START</button>
-            <button onClick={() => this.onReset()}>RESET</button>
-          </div>
+          <span className="button">
+            <button className={this.state.countDown ? "stop-btn" : "start-btn"} onClick={() => this.onStart()}>{this.state.status}</button>
+            <button className="reset-btn" onClick={() => this.onReset()}>RESET</button>
+          </span>
         </div>
         <div>
           <span className="timeset">{this.state.minutes}:{this.state.seconds}</span>

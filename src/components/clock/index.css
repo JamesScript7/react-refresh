@@ -1,9 +1,9 @@
-span {
+div.digital span {
   font-family: monospace;
   font-size: 6em;
 }
 
-.digital {
+div.digital {
   font-family: monospace;
   text-align: left;
   display: inline-block;
