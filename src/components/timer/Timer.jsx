@@ -21,30 +21,24 @@ class Timer extends Component {
     clearInterval(this.timer);
   }
   onChange(e) {
-    console.log(e.target.id);
     if (e.target.id === 'minutes') {
       this.setState({
-        minutes: e.target.value || 0
+        minutes: e.target.value
       });
     }
     if (e.target.id === 'seconds') {
       this.setState({
-        seconds: e.target.value || 0
+        seconds: e.target.value
       });
     }
   }
-  onStart() {
+  onStart(e) {
     console.log('START!');
     let minutes = parseInt(this.state.minutes, 10) * 60 * 1000;
     let seconds = parseInt(this.state.seconds, 10) * 1000;
 
-    if (seconds === 0) {
-      return;
-    } else if (minutes > 60) {
-      console.log("OVER", minutes);
-    } else if (seconds > 60) {
-      console.log("OVER", seconds);
-    }
+    if (seconds === 0 && minutes === 0) return;
+    if (e.target.className === 'stop-btn') return;
 
     // Need to be converted to milliseconds
     let d = new Date().getTime();
@@ -103,12 +97,20 @@ class Timer extends Component {
             }
           </select>
           <span className="button">
-            <button className={this.state.countDown ? "stop-btn" : "start-btn"} onClick={() => this.onStart()}>{this.state.status}</button>
-            <button className="reset-btn" onClick={() => this.onReset()}>RESET</button>
+            <button
+              className={this.state.countDown ? "stop-btn" : "start-btn"}
+              onClick={(e) => this.onStart(e)}>
+              {this.state.status}
+            </button>
+            <button
+              className="reset-btn"
+              onClick={() => this.onReset()}>
+              RESET
+            </button>
           </span>
         </div>
         <div>
-          <span className="timeset">{this.state.minutes}:{this.state.seconds}</span>
+          {/*<span className="timeset">{this.state.minutes}:{this.state.seconds}</span>*/}
           <div className="countdown-number">{this.state.countDown}</div>
         </div>
       </div>
