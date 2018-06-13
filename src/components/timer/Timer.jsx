@@ -7,9 +7,8 @@ class Timer extends Component {
     super(props);
 
     this.state = {
-      time: new Date(),
-      minutes: '00',
-      seconds: '00',
+      minutes: '0',
+      seconds: '0',
       countDown: null,
       status: 'START'
     }
@@ -33,42 +32,56 @@ class Timer extends Component {
     }
   }
   onStart(e) {
-    console.log('START!');
-    let minutes = parseInt(this.state.minutes, 10) * 60 * 1000;
-    let seconds = parseInt(this.state.seconds, 10) * 1000;
+    console.log('START');
+    const minutes = parseInt(this.state.minutes, 10);
+    const seconds = parseInt(this.state.seconds, 10);
+    const combined = (minutes * 60) + seconds;
 
     if (seconds === 0 && minutes === 0) return;
-    if (e.target.className === 'stop-btn') return;
 
-    // Need to be converted to milliseconds
-    let d = new Date().getTime();
-    let combined = d + minutes + seconds;
+    if (this.state.status === 'RESUME') {
+      console.log('RESUME');
+      this.run(this.state.countDown);
 
+      return;
+    } else if (e.target.className === 'stop-btn') {
+      console.log('STOP');
+      clearInterval(this.timer);
+
+      this.setState({
+        minutes: minutes,
+        seconds: seconds,
+        status: 'RESUME'
+      });
+      return;
+    }
+
+    this.run(combined);
+  }
+  run(combined) {
     this.timer = setInterval(() => {
-      d = new Date().getTime();
-      this.run(combined, d);
+      this.setState({
+        countDown: combined,
+        status: 'STOP'
+      });
 
-      if ((combined - d) <= 0) {
-        console.log('END!');
+      if (combined === 0) {
+        console.log('END');
         clearInterval(this.timer);
+      } else {
+        combined--;
       }
     }, 1000);
   }
   onReset() {
-    console.log('RESET!');
+    console.log('RESET');
     clearInterval(this.timer);
 
     this.setState({
-      minutes: '00',
-      seconds: '00',
+      minutes: '0',
+      seconds: '0',
       countDown: null,
       status: 'START'
-    });
-  }
-  run(comb, date) {
-    this.setState({
-      countDown: Math.round(((comb - date) / 1000) + 1),
-      status: 'STOP'
     });
   }
   render() {

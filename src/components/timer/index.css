@@ -1,6 +1,7 @@
 select#minutes, select#seconds {
   padding: 11px;
   border-radius: 2px;
+  font-size: 1.1em;
 }
 
 .countdown-number {
