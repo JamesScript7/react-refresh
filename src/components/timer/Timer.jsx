@@ -14,7 +14,9 @@ class Timer extends Component {
       minutes: 0,
       seconds: 0,
       countDown: null,
-      status: 'START'
+      status: 'START',
+      min: 0,
+      sec: 0
     }
 
     this.arr = Array(60).fill(null);
@@ -27,13 +29,24 @@ class Timer extends Component {
     if (this.state.status !== 'START') return;
     const { id, value } = e.target;
 
-    if (id === 'minutes') this.setState({ minutes: parseInt(value, 10) });
-    if (id === 'seconds') this.setState({ seconds: parseInt(value, 10) });
+    if (id === 'minutes') {
+      this.setState({
+        minutes: parseInt(value, 10),
+        min: parseInt(value, 10)
+      });
+    }
+
+    if (id === 'seconds') {
+      this.setState({
+        seconds: parseInt(value, 10),
+        sec: parseInt(value, 10)
+      });
+    }
   }
   handleStart() {
-    const { minutes, seconds, countDown, status } = this.state;
-    if (seconds < 1 && minutes < 1) return;
-    const combined = (minutes * 60) + seconds;
+    const { min, sec, countDown, status } = this.state;
+    if (sec < 1 && min < 1) return;
+    const combined = (min * 60) + sec;
 
     switch(status) {
       case 'START':
@@ -43,7 +56,7 @@ class Timer extends Component {
           countDown: combined,
           status: 'STOP'
         });
-        this.run(combined);
+        this.run();
 
         break;
       case 'STOP':
@@ -57,7 +70,7 @@ class Timer extends Component {
         console.log('*RESUME*');
 
         this.setState({ status: 'STOP'});
-        this.run(countDown);
+        this.run();
 
         break;
       default:
@@ -76,21 +89,24 @@ class Timer extends Component {
       status: 'START'
     });
   }
-  run(combined) {
-    this.timer = setInterval(() => {
-      if (combined > 0) {
-        combined--;
-        this.setState({ countDown: combined });
-      } else {
-        console.log('*END*');
+  run() {
+    let { min, sec } = this.state;
+    console.log(min, sec);
 
-        clearInterval(this.timer);
-        this.setState({
-          minutes: 0,
-          seconds: 0
-        });
-      }
-    }, 1000);
+    // this.timer = setInterval(() => {
+    //   if (combined > 0) {
+    //     combined--;
+    //     this.setState({ countDown: combined });
+    //   } else {
+    //     console.log('*END*');
+    //
+    //     clearInterval(this.timer);
+    //     this.setState({
+    //       minutes: 0,
+    //       seconds: 0
+    //     });
+    //   }
+    // }, 1000);
   }
   render() {
     const { minutes, seconds, countDown, status } = this.state;
