@@ -93,19 +93,20 @@ class Timer extends Component {
   }
   run(num) {
     let { min, sec } = this.state;
-    // let countDown = (min * 60) + sec;
 
     this.timer = setInterval(() => {
       if (num > 0) {
 
-        // if () {
-        //   sec--;
-        // } else {
-        //   sec--;
-        //   min--;
-        // }
+        if (min < 1) {
+          sec--;
+        } else {
+          if (sec === 0) {
+            min--;
+            sec = 60;
+          }
+          sec--;
+        }
 
-        console.log(num);
         num--;
         this.setState({
           countDown: num,
