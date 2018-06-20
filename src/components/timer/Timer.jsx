@@ -23,13 +23,14 @@ class Timer extends Component {
   componentWillUnmount() {
     clearInterval(this.timer);
   }
-  onChange(e) {
+  handleChange(e) {
+    if (this.state.status !== 'START') return;
     const { id, value } = e.target;
 
     if (id === 'minutes') this.setState({ minutes: parseInt(value, 10) });
     if (id === 'seconds') this.setState({ seconds: parseInt(value, 10) });
   }
-  onStart() {
+  handleStart() {
     const { minutes, seconds, countDown, status } = this.state;
     if (seconds < 1 && minutes < 1) return;
     const combined = (minutes * 60) + seconds;
@@ -63,7 +64,7 @@ class Timer extends Component {
         console.log('Error in START/STOP/RESUME');
     }
   }
-  onReset() {
+  handleReset() {
     if (this.state.status === 'START') return;
     console.log('*RESET*');
 
@@ -102,17 +103,17 @@ class Timer extends Component {
           <Minutes
             arr={this.arr}
             minutes={minutes}
-            handleChange={(e) => this.onChange(e)} />
+            handleChange={(e) => this.handleChange(e)} />
           <label htmlFor="seconds">Seconds:</label>
           <Seconds
             arr={this.arr}
             seconds={seconds}
-            handleChange={(e) => this.onChange(e)} />
+            handleChange={(e) => this.handleChange(e)} />
           <Buttons
             countDown={countDown}
             status={status}
-            handleStart={() => this.onStart()}
-            handleReset={() => this.onReset()} />
+            handleStart={() => this.handleStart()}
+            handleReset={() => this.handleReset()} />
         </div>
         <div>
           <div className="countdown-number">{countDown}</div>
