@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // Components
 import Minutes from './Minutes';
 import Seconds from './Seconds';
+import Buttons from './Buttons';
 // STYLES
 import './index.css';
 
@@ -107,18 +108,11 @@ class Timer extends Component {
             arr={this.arr}
             seconds={seconds}
             onChange={(e) => this.onChange(e)} />
-          <span className="button">
-            <button
-              className={countDown ? "stop-btn" : "start-btn"}
-              onClick={() => this.onStart()}>
-              {status}
-            </button>
-            <button
-              className="reset-btn"
-              onClick={() => this.onReset()}>
-              RESET
-            </button>
-          </span>
+          <Buttons
+            countDown={countDown}
+            status={status}
+            onStart={() => this.onStart()}
+            onReset={() => this.onReset()} />
         </div>
         <div>
           <div className="countdown-number">{countDown}</div>

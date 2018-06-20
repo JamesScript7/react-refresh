@@ -3,7 +3,7 @@ import React from 'react';
 const Seconds = ({ arr, seconds, onChange}) => {
   return (
     <select
-      id="minutes"
+      id="seconds"
       value={seconds}
       onChange={(e) => onChange(e)}>
       {
