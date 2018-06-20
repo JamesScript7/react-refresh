@@ -105,9 +105,10 @@ class Timer extends Component {
         //   min--;
         // }
 
+        console.log(num);
         num--;
         this.setState({
-          countDown: num
+          countDown: num,
           min: min,
           sec: sec
         });
@@ -123,7 +124,12 @@ class Timer extends Component {
     }, 1000);
   }
   render() {
-    const { minutes, seconds, countDown, status } = this.state;
+    const { minutes, seconds, countDown, status, min, sec } = this.state;
+    let secondsWithZero;
+
+    if (sec < 10) {
+      secondsWithZero = '0' + sec.toString();
+    }
 
     return (
       <div className="clock">
@@ -146,7 +152,13 @@ class Timer extends Component {
             handleReset={() => this.handleReset()} />
         </div>
         <div>
-          <div className="countdown-number">{countDown}</div>
+          {(status !== 'START') &&
+            <div>
+              <span className="countdown-number">{min}</span>
+              <span className="countdown-number">:</span>
+              <span className="countdown-number">{secondsWithZero || sec}</span>
+            </div>
+          }
         </div>
       </div>
     )
