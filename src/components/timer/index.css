@@ -1,5 +1,5 @@
 select#minutes, select#seconds {
-  padding: 11px;
+  padding: 10px;
   border-radius: 2px;
   font-size: 1.1em;
 }
@@ -12,6 +12,12 @@ select#minutes, select#seconds {
   font-size: 1em;
 }
 
+.input-field {
+  display: inline-block;
+  border: 1px solid grey;
+  padding: 30px;
+}
+
 .input-field label {
   padding: 0 20px;
 }
@@ -21,7 +27,8 @@ input#minutes, input#seconds {
 }
 
 .button button {
-  margin-left: 20px;
+  margin-left: 30px;
+  padding: 13px;
   border: none;
   border-radius: 2px;
   background-color: slategrey;

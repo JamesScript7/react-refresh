@@ -74,9 +74,10 @@ class Timer extends Component {
     }, 1000);
   }
   onReset() {
-    console.log('RESET');
-    clearInterval(this.timer);
+    if (this.state.status === 'START') return;
+    console.log('*RESET*');
 
+    clearInterval(this.timer);
     this.setState({
       minutes: '0',
       seconds: '0',
@@ -85,6 +86,9 @@ class Timer extends Component {
     });
   }
   render() {
+    const { minutes, seconds, countDown, status } = this.state;
+    console.log(minutes, seconds, countDown, status);
+
     return (
       <div className="clock">
         <h1>Quick Timer</h1>
@@ -92,7 +96,7 @@ class Timer extends Component {
           <label htmlFor="minutes">Minutes:</label>
           <select
             id="minutes"
-            value={this.state.minutes}
+            value={minutes}
             onChange={(e) => this.onChange(e)}>
             {this.arr.map((el, i) => {
                 return <option key={i} value={i}>{i}</option>
@@ -102,7 +106,7 @@ class Timer extends Component {
           <label htmlFor="seconds">Seconds:</label>
           <select
             id="seconds"
-            value={this.state.seconds}
+            value={seconds}
             onChange={(e) => this.onChange(e)}>
             {this.arr.map((el, i) => {
                 return <option key={i} value={i}>{i}</option>
@@ -111,9 +115,9 @@ class Timer extends Component {
           </select>
           <span className="button">
             <button
-              className={this.state.countDown ? "stop-btn" : "start-btn"}
+              className={countDown ? "stop-btn" : "start-btn"}
               onClick={(e) => this.onStart(e)}>
-              {this.state.status}
+              {status}
             </button>
             <button
               className="reset-btn"
@@ -124,7 +128,7 @@ class Timer extends Component {
         </div>
         <div>
           {/*<span className="timeset">{this.state.minutes}:{this.state.seconds}</span>*/}
-          <div className="countdown-number">{this.state.countDown}</div>
+          <div className="countdown-number">{countDown}</div>
         </div>
       </div>
     )
