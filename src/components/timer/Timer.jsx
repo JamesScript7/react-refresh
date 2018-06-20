@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+// Components
+import Minutes from './Minutes';
+import Seconds from './Seconds';
 // STYLES
 import './index.css';
 
@@ -95,27 +98,15 @@ class Timer extends Component {
         <h1>Quick Timer</h1>
         <div className="input-field">
           <label htmlFor="minutes">Minutes:</label>
-          <select
-            id="minutes"
-            value={minutes}
-            onChange={(e) => this.onChange(e)}>
-            {
-              this.arr.map((el, i) => {
-                return <option key={i} value={i}>{i}</option>
-              })
-            }
-          </select>
+          <Minutes
+            arr={this.arr}
+            minutes={minutes}
+            onChange={(e) => this.onChange(e)} />
           <label htmlFor="seconds">Seconds:</label>
-          <select
-            id="seconds"
-            value={seconds}
-            onChange={(e) => this.onChange(e)}>
-            {
-              this.arr.map((el, i) => {
-                return <option key={i} value={i}>{i}</option>
-              })
-            }
-          </select>
+          <Seconds
+            arr={this.arr}
+            seconds={seconds}
+            onChange={(e) => this.onChange(e)} />
           <span className="button">
             <button
               className={countDown ? "stop-btn" : "start-btn"}
@@ -130,7 +121,6 @@ class Timer extends Component {
           </span>
         </div>
         <div>
-          {/*<span className="timeset">{this.state.minutes}:{this.state.seconds}</span>*/}
           <div className="countdown-number">{countDown}</div>
         </div>
       </div>
