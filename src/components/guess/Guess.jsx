@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+// Components
+import GuessForm from './GuessForm';
 // STYLES
 import './index.css';
 
@@ -16,10 +17,10 @@ class Guess extends Component {
       active: true,
     }
 
-    this.onNumberChange = this.onNumberChange.bind(this);
-    this.onRangeChange = this.onRangeChange.bind(this);
     this.resetGame = this.resetGame.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onRangeChange = this.onRangeChange.bind(this);
+    this.onNumberChange = this.onNumberChange.bind(this);
   }
   pickNumber(x) {
     const d = new Date();
@@ -106,22 +107,13 @@ class Guess extends Component {
           <div>Lives left: {lives}</div>
           <button className={`reset-btn ${active ? "hide": "active"}`} onClick={this.resetGame}>Reset Game</button>
         </div>
-
-        <form className="guess" onSubmit={this.handleSubmit}>
-          <div>Number Range:</div>
-          <input type="range" value={max} name="range" onChange={this.onRangeChange} />
-
-          <div className="center">
-            <div className="guess-it">Guess the number between 1 and {max}</div>
-            <div>
-              <label>
-                <input type="number" name="guess" onChange={this.onNumberChange} />
-              </label>
-              <button className={`enter-btn ${active ? "active": "hide"}`}>Enter</button>
-            </div>
-          </div>
-
-        </form>
+        <GuessForm
+          max={max}
+          active={active}
+          handleSubmit={this.handleSubmit}
+          onRangeChange={this.onRangeChange}
+          onNumberChange={this.onNumberChange}
+          />
         <div className="msg">
           <div className={status}>{message}</div>
           <div>{!active ? `The magic number was ${this.answer}` : ""}</div>

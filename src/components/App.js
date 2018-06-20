@@ -39,7 +39,7 @@ const Home = () => (
     <div className="link-list">
       <ul>
         <li><NavLink to="/clock">Clock</NavLink></li>
-        <li><NavLink to="/timer">Timer</NavLink></li>
+        <li><NavLink to="/timer">Quick Timer</NavLink></li>
         <li><NavLink to="/guessing-game">Guessing Game</NavLink></li>
         <li><NavLink to="/tweet-simulator">Tweet Simulator</NavLink></li>
         <li><NavLink to="/tic-tac-toe">Tic Tac Toe</NavLink></li>
