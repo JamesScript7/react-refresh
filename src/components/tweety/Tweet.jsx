@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+// Components
 import TweetForm from './TweetForm';
-
+import TweetList from './TweetList';
 // STYLES
 import './index.css';
 
@@ -44,6 +45,8 @@ class Tweet extends Component {
   }
 
   render() {
+    // const {  } = this.state;
+
     return (
       <div className="tweety">
         <h1>Tweet Simulator</h1>
@@ -55,13 +58,8 @@ class Tweet extends Component {
             maxLen={this.state.maxLen} />
           <p>Characters left: {this.state.inputLen}</p>
         </div>
-        <ul className="tweet-list">
-          {
-            this.state.tweets.map((tweet, i) => {
-              return <li key={"item-" + (i + 1)}>{tweet}</li>
-            }).reverse()
-          }
-        </ul>
+        <TweetList
+          tweets={this.state.tweets}/>
       </div>
     )
   }
