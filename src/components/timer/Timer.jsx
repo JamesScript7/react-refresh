@@ -102,17 +102,17 @@ class Timer extends Component {
           <Minutes
             arr={this.arr}
             minutes={minutes}
-            onChange={(e) => this.onChange(e)} />
+            handleChange={(e) => this.onChange(e)} />
           <label htmlFor="seconds">Seconds:</label>
           <Seconds
             arr={this.arr}
             seconds={seconds}
-            onChange={(e) => this.onChange(e)} />
+            handleChange={(e) => this.onChange(e)} />
           <Buttons
             countDown={countDown}
             status={status}
-            onStart={() => this.onStart()}
-            onReset={() => this.onReset()} />
+            handleStart={() => this.onStart()}
+            handleReset={() => this.onReset()} />
         </div>
         <div>
           <div className="countdown-number">{countDown}</div>
