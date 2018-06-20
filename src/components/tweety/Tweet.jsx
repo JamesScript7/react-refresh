@@ -11,7 +11,7 @@ class Tweet extends Component {
     super(props);
 
     this.state = {
-      value: props.startValue || 'What\'s on your mind?',
+      value: props.startValue || "What's on your mind?",
       tweets: [],
       maxLen: 50,
       inputLen: 0 || 50
@@ -21,10 +21,9 @@ class Tweet extends Component {
     this.addNewStatus = this.addNewStatus.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-
   addNewStatus(status) {
     // Just making a copy of state.
-    let tweetArr = this.state.tweets.slice();
+    const tweetArr = this.state.tweets.slice();
     tweetArr.push(status);
 
     this.setState({
@@ -32,9 +31,8 @@ class Tweet extends Component {
       inputLen: 0 || 50
     });
   }
-
   handleChange(e) {
-    let difference = this.state.maxLen - parseInt(e.target.value.length, 10);
+    const difference = this.state.maxLen - parseInt(e.target.value.length, 10);
 
     if (difference >= 0) {
       this.setState({
@@ -43,9 +41,8 @@ class Tweet extends Component {
     }
 
   }
-
   render() {
-    // const {  } = this.state;
+    const { value, tweets, maxLen, inputLen } = this.state;
 
     return (
       <div className="tweety">
@@ -54,12 +51,12 @@ class Tweet extends Component {
           <TweetForm
             addNewStatus={this.addNewStatus}
             handleChange={this.handleChange}
-            startValue={this.state.value}
-            maxLen={this.state.maxLen} />
-          <p>Characters left: {this.state.inputLen}</p>
+            startValue={value}
+            maxLen={maxLen} />
+          <p>Characters left: {inputLen}</p>
         </div>
         <TweetList
-          tweets={this.state.tweets}/>
+          tweets={tweets}/>
       </div>
     )
   }
