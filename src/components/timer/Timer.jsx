@@ -25,48 +25,39 @@ class Timer extends Component {
     if (id === 'minutes') this.setState({ minutes: parseInt(value, 10) });
     if (id === 'seconds') this.setState({ seconds: parseInt(value, 10) });
   }
-  onStart(e) {
+  onStart() {
     const { minutes, seconds, countDown, status } = this.state;
     if (seconds < 1 && minutes < 1) return;
     const combined = (minutes * 60) + seconds;
 
-    if (status === 'START') {
-      console.log('*START*');
+    switch(status) {
+      case 'START':
+        console.log('*START*');
 
-      this.setState({
-        countDown: combined,
-        status: 'STOP'
-      });
+        this.setState({
+          countDown: combined,
+          status: 'STOP'
+        });
+        this.run(combined);
 
-      this.run(combined);
-    } else if (status === 'STOP') {
-      console.log('*STOP*');
+        break;
+      case 'STOP':
+        console.log('*STOP*');
 
-      clearInterval(this.timer);
-      this.setState({ status: 'RESUME' });
+        clearInterval(this.timer);
+        this.setState({ status: 'RESUME' });
 
-    } else if (status === 'RESUME') {
-      console.log('*RESUME*');
+        break;
+      case 'RESUME':
+        console.log('*RESUME*');
 
-      this.setState({ status: 'STOP'});
-      this.run(countDown);
+        this.setState({ status: 'STOP'});
+        this.run(countDown);
 
-    } else {
-      console.log('Error in START/STOP/RESUME');
+        break;
+      default:
+        console.log('Error in START/STOP/RESUME');
     }
-
-  }
-  run(combined) {
-    // this.timer = setInterval(() => {
-    //   this.setState({ countDown: combined });
-    //
-    //   if (combined === 0) {
-    //     console.log('END');
-    //     clearInterval(this.timer);
-    //   } else {
-    //     combined--;
-    //   }
-    // }, 1000);
   }
   onReset() {
     if (this.state.status === 'START') return;
@@ -80,6 +71,22 @@ class Timer extends Component {
       status: 'START'
     });
   }
+  run(combined) {
+    this.timer = setInterval(() => {
+      if (combined > 0) {
+        combined--;
+        this.setState({ countDown: combined });
+      } else {
+        console.log('*END*');
+
+        clearInterval(this.timer);
+        this.setState({
+          minutes: 0,
+          seconds: 0
+        });
+      }
+    }, 1000);
+  }
   render() {
     const { minutes, seconds, countDown, status } = this.state;
 
@@ -92,7 +99,8 @@ class Timer extends Component {
             id="minutes"
             value={minutes}
             onChange={(e) => this.onChange(e)}>
-            {this.arr.map((el, i) => {
+            {
+              this.arr.map((el, i) => {
                 return <option key={i} value={i}>{i}</option>
               })
             }
@@ -102,7 +110,8 @@ class Timer extends Component {
             id="seconds"
             value={seconds}
             onChange={(e) => this.onChange(e)}>
-            {this.arr.map((el, i) => {
+            {
+              this.arr.map((el, i) => {
                 return <option key={i} value={i}>{i}</option>
               })
             }
@@ -110,7 +119,7 @@ class Timer extends Component {
           <span className="button">
             <button
               className={countDown ? "stop-btn" : "start-btn"}
-              onClick={(e) => this.onStart(e)}>
+              onClick={() => this.onStart()}>
               {status}
             </button>
             <button
