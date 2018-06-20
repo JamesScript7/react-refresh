@@ -7,8 +7,8 @@ class Timer extends Component {
     super(props);
 
     this.state = {
-      minutes: '0',
-      seconds: '0',
+      minutes: 0,
+      seconds: 0,
       countDown: null,
       status: 'START'
     }
@@ -20,58 +20,53 @@ class Timer extends Component {
     clearInterval(this.timer);
   }
   onChange(e) {
-    if (e.target.id === 'minutes') {
-      this.setState({
-        minutes: e.target.value
-      });
-    }
-    if (e.target.id === 'seconds') {
-      this.setState({
-        seconds: e.target.value
-      });
-    }
+    const { id, value } = e.target;
+
+    if (id === 'minutes') this.setState({ minutes: parseInt(value, 10) });
+    if (id === 'seconds') this.setState({ seconds: parseInt(value, 10) });
   }
   onStart(e) {
-    console.log('START');
-    const minutes = parseInt(this.state.minutes, 10);
-    const seconds = parseInt(this.state.seconds, 10);
+    const { minutes, seconds, countDown, status } = this.state;
+    if (seconds < 1 && minutes < 1) return;
     const combined = (minutes * 60) + seconds;
 
-    if (seconds === 0 && minutes === 0) return;
+    if (status === 'START') {
+      console.log('*START*');
 
-    if (this.state.status === 'RESUME') {
-      console.log('RESUME');
-      this.run(this.state.countDown);
-
-      return;
-    } else if (e.target.className === 'stop-btn') {
-      console.log('STOP');
-      clearInterval(this.timer);
-
-      this.setState({
-        minutes: minutes,
-        seconds: seconds,
-        status: 'RESUME'
-      });
-      return;
-    }
-
-    this.run(combined);
-  }
-  run(combined) {
-    this.timer = setInterval(() => {
       this.setState({
         countDown: combined,
         status: 'STOP'
       });
 
-      if (combined === 0) {
-        console.log('END');
-        clearInterval(this.timer);
-      } else {
-        combined--;
-      }
-    }, 1000);
+      this.run(combined);
+    } else if (status === 'STOP') {
+      console.log('*STOP*');
+
+      clearInterval(this.timer);
+      this.setState({ status: 'RESUME' });
+
+    } else if (status === 'RESUME') {
+      console.log('*RESUME*');
+
+      this.setState({ status: 'STOP'});
+      this.run(countDown);
+
+    } else {
+      console.log('Error in START/STOP/RESUME');
+    }
+
+  }
+  run(combined) {
+    // this.timer = setInterval(() => {
+    //   this.setState({ countDown: combined });
+    //
+    //   if (combined === 0) {
+    //     console.log('END');
+    //     clearInterval(this.timer);
+    //   } else {
+    //     combined--;
+    //   }
+    // }, 1000);
   }
   onReset() {
     if (this.state.status === 'START') return;
@@ -79,15 +74,14 @@ class Timer extends Component {
 
     clearInterval(this.timer);
     this.setState({
-      minutes: '0',
-      seconds: '0',
+      minutes: 0,
+      seconds: 0,
       countDown: null,
       status: 'START'
     });
   }
   render() {
     const { minutes, seconds, countDown, status } = this.state;
-    console.log(minutes, seconds, countDown, status);
 
     return (
       <div className="clock">
