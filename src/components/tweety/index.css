@@ -17,6 +17,7 @@ input, button {
 .tweet-list li {
   width: 300px;
   margin: 4px auto;
-  background-color: #101010;
   padding: 10px;
+  background-color: #101010;
+  word-wrap: break-word;
 }

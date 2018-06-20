@@ -1,30 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class TweetForm extends Component {
-  onSubmit(e) {
+const TweetForm = ({ startValue, maxLen, addNewStatus, handleChange }) => {
+  const onSubmit = (e) => {
     e.preventDefault();
+    const val = e.target.tweet.value;
 
-    if (e.target.tweet.value.length !== 0) {
-      this.props.addNewStatus(e.target.tweet.value);
+    if (val.length !== 0) {
+      addNewStatus(val);
       e.target.reset();
     }
-  }
+  };
 
-  render() {
-    return (
-      <form className="tweet-form" onSubmit={(e) => this.onSubmit(e)}>
-        <input
-          type="text"
-          name="tweet"
-          autoComplete="off"
-          maxLength={this.props.maxLen}
-          onChange={e => this.props.handleChange(e)}
-          placeholder={this.props.startValue} />
+  return (
+    <form className="tweet-form" onSubmit={(e) => onSubmit(e)}>
+      <input
+        type="text"
+        name="tweet"
+        autoComplete="off"
+        maxLength={maxLen}
+        onChange={e => handleChange(e)}
+        placeholder={startValue} />
 
-        <button>Tweet!</button>
-      </form>
-    );
-  }
+      <button>Tweet!</button>
+    </form>
+  );
 }
 
 export default TweetForm;

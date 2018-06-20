@@ -48,18 +48,17 @@ class Tweet extends Component {
       <div className="tweety">
         <h1>Tweet Simulator</h1>
         <div className="tweet-form">
-          <TweetForm addNewStatus={this.addNewStatus}
+          <TweetForm
+            addNewStatus={this.addNewStatus}
             handleChange={this.handleChange}
             startValue={this.state.value}
-            maxLen={this.state.maxLen}/>
+            maxLen={this.state.maxLen} />
           <p>Characters left: {this.state.inputLen}</p>
         </div>
         <ul className="tweet-list">
           {
             this.state.tweets.map((tweet, i) => {
-              return (
-                <li key={"item-" + (i + 1)}>{tweet}</li>
-              )
+              return <li key={"item-" + (i + 1)}>{tweet}</li>
             }).reverse()
           }
         </ul>
