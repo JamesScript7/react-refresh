@@ -7,7 +7,6 @@ import './index.css';
 class Guess extends Component {
   constructor(props) {
     super(props);
-    this.answer = this.pickNumber(10);
 
     this.state = {
       max: 10,
@@ -17,16 +16,20 @@ class Guess extends Component {
       active: true,
     }
 
+    this.answer = this.pickNumber(10);
+    // Binders
     this.resetGame = this.resetGame.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onRangeChange = this.onRangeChange.bind(this);
     this.onNumberChange = this.onNumberChange.bind(this);
   }
+
   pickNumber(x) {
     const d = new Date();
     const newNum = (d.getMilliseconds() % x - 1) + 1;
     return newNum ? newNum : newNum + 1;
   }
+
   handleSubmit(e) {
     e.preventDefault();
     let { max, lives, status, active } = this.state;
@@ -66,12 +69,14 @@ class Guess extends Component {
 
     e.target.guess.value = '';
   }
+
   onNumberChange(e) {
     e.preventDefault();
     const userGuess = e.target.value;
 
     this.guess = parseInt(userGuess, 10);
   }
+
   onRangeChange(e) {
     e.target.min = 5;
     e.target.max = 1000;
@@ -85,6 +90,7 @@ class Guess extends Component {
 
     this.answer = this.pickNumber(range);
   }
+
   resetGame() {
     const reset = {
       max: 10,
@@ -97,6 +103,7 @@ class Guess extends Component {
     this.answer = this.pickNumber(this.state.max);
     this.setState(reset);
   }
+
   render() {
     const { max, lives, status, message, active } = this.state;
 
